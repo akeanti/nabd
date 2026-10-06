@@ -1,0 +1,26 @@
+item,tier,quantity,reference,description,example_part,unit_cost_usd,line_cost_usd,notes
+1,common,1,U1,"ESP32-S3 development board, 8 MB flash",Espressif ESP32-S3-DevKitC-1-N8,15.00,15.00,Variants with PSRAM also work
+2,common,1,U2,GPS receiver breakout with PPS output,u-blox NEO-M8N breakout,12.00,12.00,Many NEO-6M boards route PPS only to an LED
+3,common,1,ANT1,Active GPS antenna with cable and adapter for the receiver connector,"28 dB active antenna, 3 m cable",7.00,7.00,
+4,common,1,PS1,9 V AC-AC wall adapter: safety isolating transformer with AC output,Triad Magnetics WAU09-1000,12.00,12.00,Plug type for your country; IEC 61558-2-6 or UL 5085-3 Class 2
+5,common,1,J1,"DC barrel jack, 2.1 mm, through-hole",CUI Devices PJ-102AH,0.80,0.80,Adapter input
+6,common,1,R1,Resistor 100 kOhm 1% 0.25 W metal film,,0.10,0.10,Divider top
+7,common,1,R2,Resistor 5.6 kOhm 1% 0.25 W metal film,,0.10,0.10,Divider bottom
+8,common,2,R3 R4,Resistor 10 kOhm 1% 0.25 W metal film,,0.10,0.20,Bias divider
+9,common,1,C1,"Capacitor 470 uF 10 V electrolytic, radial",,0.30,0.30,Bias decoupling
+10,common,1,C2,Capacitor 100 nF 50 V ceramic X7R,,0.10,0.10,Bias decoupling
+11,common,1,C3,Capacitor 1 nF 50 V ceramic C0G,,0.10,0.10,ADC input charge reservoir
+12,common,2,D1 D2,"Schottky diode 30 V, DO-35",Vishay BAT85,0.12,0.24,Clamp of the ADC input node
+13,common,1,PCB1,"Nabd shield PCB, 2 layers",,2.00,2.00,Per board from a 5-board order
+14,common,2,J2 J3,"Female header 1x22, 2.54 mm",,0.60,1.20,Sockets for the DevKitC
+15,common,1,J4,"Female header 1x6, 2.54 mm",,0.30,0.30,GPS receiver socket
+16,common,3,JP1 JP2 JP3,"Pin header 1x3, 2.54 mm, with jumper cap",,0.10,0.30,ADC tier selection
+17,common,1,PS2,USB power supply 5 V 1 A with USB cable,,7.00,7.00,Any supply that powers the DevKitC works
+18,B,1,U3,"24-bit 2-channel simultaneous-sampling delta-sigma ADC, TSSOP-20",Texas Instruments ADS131M02IPWR,4.50,4.50,
+19,B,1,Y1,"Oscillator 8.192 MHz, 3.3 V CMOS output",,1.50,1.50,Not needed if the ESP32-S3 generates CLKIN
+20,B,6,C4 C5 C6 C7 C8 C9,Decoupling and regulator capacitors per ADS131M02 datasheet,,0.10,0.60,
+21,B,2,R5 R6,"Resistor 1 kOhm 1%, ADC input filter",,0.10,0.20,
+22,B,2,C10 C11,"Capacitor 10 nF C0G, ADC input filter",,0.10,0.20,
+23,optional,1,,Enclosure,,5.00,5.00,Not included in the totals
+total_a,A,,,"Total, tier A build: all common items",,,58.74,"Indicative single-unit prices, 2026"
+total_b,B,,,"Total, tier B build: common items and tier B items",,,65.74,"Indicative single-unit prices, 2026"
