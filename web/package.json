@@ -1,0 +1,24 @@
+{
+  "name": "nabd-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Live map of Nabd nodes: frequency, relative phase angle, events, and node health.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3"
+  }
+}
