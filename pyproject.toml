@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nabd"
+version = "0.1.0"
+description = "Collector, event detection, and command-line tools for the Nabd grid measurement network."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Nabd contributors" }]
+keywords = ["synchrophasor", "pmu", "grid frequency", "rocof", "ieee c37.118", "esp32"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering",
+  "Typing :: Typed",
+]
+dependencies = ["typer>=0.27,<1"]
+
+[project.optional-dependencies]
+dev = [
+  "black==26.10.0",
+  "git-cliff==2.14.2",
+  "mypy==2.4.0",
+  "pytest==9.1.1",
+  "ruff==0.16.10",
+]
+
+[project.scripts]
+nabd = "nabd.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/OWNER/nabd"
+Documentation = "https://OWNER.github.io/nabd/"
+Issues = "https://github.com/OWNER/nabd/issues"
+Changelog = "https://github.com/OWNER/nabd/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["server/nabd_collector", "server/nabd_events", "tools/nabd"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["server/nabd_collector", "server/nabd_events", "tools/nabd", "LICENSE", "README.md"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "N", "PT", "PTH", "RUF", "SIM", "UP", "W"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["nabd", "nabd_collector", "nabd_events"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+mypy_path = "server,tools"
+files = ["server/nabd_collector", "server/nabd_events", "tools/nabd"]
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+testpaths = ["server/tests", "tools/tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--import-mode=importlib"]
+xfail_strict = true
