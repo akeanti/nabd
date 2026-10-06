@@ -1,0 +1,12 @@
+{
+  "name": "nabd_dsp",
+  "version": "0.1.0",
+  "description": "Synchrophasor, frequency, and ROCOF estimation for IEEE C37.118.1 P class. Pure C++17 without platform headers.",
+  "keywords": ["synchrophasor", "pmu", "dsp", "c37.118"],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*",
+  "build": {
+    "flags": ["-Wall", "-Wextra", "-Wpedantic", "-Wshadow", "-Wconversion", "-Wdouble-promotion", "-Werror"]
+  }
+}

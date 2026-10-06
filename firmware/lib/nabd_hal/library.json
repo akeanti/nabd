@@ -1,0 +1,12 @@
+{
+  "name": "nabd_hal",
+  "version": "0.1.0",
+  "description": "Hardware abstraction: AdcSource interface, ESP32-S3 internal ADC and ADS131M02 backends, PPS capture, and GPS NMEA parser.",
+  "keywords": ["adc", "ads131m02", "gps", "nmea", "esp32-s3"],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*",
+  "build": {
+    "flags": ["-Wall", "-Wextra"]
+  }
+}

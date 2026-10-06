@@ -1,0 +1,12 @@
+{
+  "name": "nabd_time",
+  "version": "0.1.0",
+  "description": "GPS PPS clock discipline: maps local CPU cycle counts to UTC and reports lock state, offset, and holdover quality. Host-testable core with an injected time source.",
+  "keywords": ["gps", "pps", "clock discipline", "timing"],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*",
+  "build": {
+    "flags": ["-Wall", "-Wextra", "-Wpedantic", "-Wshadow", "-Wconversion", "-Wdouble-promotion", "-Werror"]
+  }
+}

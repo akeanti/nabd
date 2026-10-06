@@ -1,0 +1,12 @@
+{
+  "name": "nabd_c37118",
+  "version": "0.1.0",
+  "description": "IEEE C37.118.2-2011 data, configuration (CFG-2), header, and command frame encoding and decoding.",
+  "keywords": ["c37.118", "synchrophasor", "pmu", "protocol"],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*",
+  "build": {
+    "flags": ["-Wall", "-Wextra", "-Wpedantic", "-Wshadow", "-Wconversion", "-Wdouble-promotion", "-Werror"]
+  }
+}
