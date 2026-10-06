@@ -1,8 +1,8 @@
 site_name: Nabd
 site_description: Open network of GPS-synchronized ESP32 nodes measuring grid frequency, ROCOF, and voltage synchrophasors.
-site_url: https://OWNER.github.io/nabd/
-repo_url: https://github.com/OWNER/nabd
-repo_name: OWNER/nabd
+site_url: https://akeanti.github.io/nabd/
+repo_url: https://github.com/akeanti/nabd
+repo_name: akeanti/nabd
 edit_uri: edit/main/docs/
 copyright: Code MIT, hardware CERN-OHL-P-2.0, dataset CC BY 4.0
 exclude_docs: |
@@ -55,4 +55,4 @@ nav:
   - Privacy: privacy.md
   - Architecture: architecture.md
   - Flash a node: flash.md
-  - Contributing: https://github.com/OWNER/nabd/blob/main/CONTRIBUTING.md
+  - Contributing: https://github.com/akeanti/nabd/blob/main/CONTRIBUTING.md

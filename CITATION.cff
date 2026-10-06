@@ -10,16 +10,10 @@ abstract: >-
   Parquet files, event detection, a live map, a compliance test harness, KiCad
   hardware designs, and an open dataset.
 authors:
-  - given-names: GIVEN_NAME
-    family-names: FAMILY_NAME
-    affiliation: AFFILIATION
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-repository-code: "https://github.com/OWNER/nabd"
-url: "https://OWNER.github.io/nabd/"
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.0000000
-    description: Placeholder for the Zenodo concept DOI assigned at the first archived release.
+  - alias: akeanti
+    website: "https://github.com/akeanti"
+repository-code: "https://github.com/akeanti/nabd"
+url: "https://akeanti.github.io/nabd/"
 keywords:
   - synchrophasor
   - phasor measurement unit

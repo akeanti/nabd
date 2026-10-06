@@ -6,7 +6,7 @@ Until version 1.0, only the latest release receives security fixes.
 
 ## Reporting a vulnerability
 
-Report vulnerabilities privately through [GitHub private vulnerability reporting](https://github.com/OWNER/nabd/security/advisories/new). Do not open a public issue. Include the affected component and version, the steps to reproduce, and the impact you expect. Maintainers acknowledge reports within 7 days and agree on a disclosure date with the reporter.
+Report vulnerabilities privately through [GitHub private vulnerability reporting](https://github.com/akeanti/nabd/security/advisories/new). Do not open a public issue. Include the affected component and version, the steps to reproduce, and the impact you expect. Maintainers acknowledge reports within 7 days and agree on a disclosure date with the reporter.
 
 ## Scope
 

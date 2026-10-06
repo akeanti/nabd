@@ -40,10 +40,10 @@ dev = [
 nabd = "nabd.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/OWNER/nabd"
-Documentation = "https://OWNER.github.io/nabd/"
-Issues = "https://github.com/OWNER/nabd/issues"
-Changelog = "https://github.com/OWNER/nabd/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/akeanti/nabd"
+Documentation = "https://akeanti.github.io/nabd/"
+Issues = "https://github.com/akeanti/nabd/issues"
+Changelog = "https://github.com/akeanti/nabd/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["server/nabd_collector", "server/nabd_events", "tools/nabd"]
