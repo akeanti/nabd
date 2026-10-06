@@ -11,7 +11,7 @@
 [![Compliance](https://img.shields.io/github/actions/workflow/status/akeanti/nabd/compliance.yml?branch=main&style=flat-square&label=C37.118.1%20compliance)](https://github.com/akeanti/nabd/actions/workflows/compliance.yml)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/akeanti/nabd/codeql.yml?branch=main&style=flat-square&label=CodeQL)](https://github.com/akeanti/nabd/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/akeanti/nabd?style=flat-square&label=OpenSSF%20Scorecard)](https://scorecard.dev/viewer/?uri=github.com/akeanti/nabd)
-[![Release](https://img.shields.io/github/v/release/akeanti/nabd?include_prereleases&sort=semver&style=flat-square&label=release)](https://github.com/akeanti/nabd/releases)
+[![Version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fakeanti%2Fnabd%2Fmain%2Fpyproject.toml&query=%24.project.version&prefix=v&label=version&style=flat-square&color=0A7E8C)](https://github.com/akeanti/nabd/releases)
 [![License](https://img.shields.io/badge/license-MIT%20%7C%20CERN--OHL--P--2.0%20%7C%20CC%20BY%204.0-0A7E8C?style=flat-square)](#license)
 [![DOI](https://img.shields.io/badge/DOI-pending-lightgrey?style=flat-square)](#dataset-and-citation)
 
