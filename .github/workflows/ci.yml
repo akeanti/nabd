@@ -4,147 +4,273 @@ on:
   push:
     branches: [main]
   pull_request:
+  merge_group:
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
-  clang-format:
-    name: clang-format
+  changes:
+    name: changed areas
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+    outputs:
+      firmware: ${{ steps.filter.outputs.firmware }}
+      python: ${{ steps.filter.outputs.python }}
+      web: ${{ steps.filter.outputs.web }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - id: filter
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          filters: |
+            workflow: &workflow
+              - .github/workflows/ci.yml
+            firmware:
+              - *workflow
+              - .clang-format
+              - firmware/**
+              - compliance/**
+              - .github/workflows/firmware-build.yml
+              - .github/actions/setup-platformio/**
+            python:
+              - *workflow
+              - pyproject.toml
+              - "**/*.py"
+              - hardware/BOM.csv
+            web:
+              - *workflow
+              - web/**
+
+  workflows:
+    name: workflow security and configuration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: .github/requirements-ci.txt
+      - run: python -m pip install --disable-pip-version-check -r .github/requirements-ci.txt
+      - name: actionlint with shellcheck
+        run: |
+          # shellcheck disable=SC2016
+          actionlint -format '{{range $err := .}}::error file={{$err.Filepath}},line={{$err.Line}},col={{$err.Column}}::{{$err.Message}}{{"\n"}}{{end}}'
+      - name: zizmor
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: zizmor --format=github .
+      - name: Configuration schemas
+        run: |
+          check-jsonschema --builtin-schema vendor.github-workflows .github/workflows/*.yml
+          check-jsonschema --builtin-schema vendor.github-actions .github/actions/*/action.yml
+          check-jsonschema --builtin-schema vendor.dependabot .github/dependabot.yml
+          check-jsonschema --builtin-schema vendor.github-issue-forms .github/ISSUE_TEMPLATE/[!c]*.yml
+          check-jsonschema --builtin-schema vendor.github-issue-config .github/ISSUE_TEMPLATE/config.yml
+          check-jsonschema --builtin-schema vendor.citation-file-format CITATION.cff
+
+  text:
+    name: text style, README, and links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Text style
+        run: python .github/scripts/check_text_style.py
+      - name: README bill of materials matches hardware/BOM.csv
+        run: python .github/scripts/sync_readme_bom.py --check
+      - name: README artwork matches its generator
+        run: python .github/scripts/render_readme_art.py --check
+      - name: Markdown links and anchors
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --offline --include-fragments --no-progress './**/*.md'
+          fail: true
+
+  cpp-format:
+    name: clang-format
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.firmware == 'true') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
       - name: Install clang-format pinned in firmware/requirements.txt
-        run: pip install "$(grep -E '^clang-format==' firmware/requirements.txt)"
+        run: python -m pip install --disable-pip-version-check "$(grep -E '^clang-format==' firmware/requirements.txt)"
       - name: Check C and C++ formatting
         run: git ls-files -z -- '*.c' '*.cpp' '*.h' '*.hpp' | xargs -0 --no-run-if-empty clang-format --dry-run --Werror
 
   firmware-test:
-    name: firmware host tests
-    runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: firmware
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: firmware/requirements.txt
-      - uses: actions/cache@v6
-        with:
-          path: ~/.platformio
-          key: platformio-native-${{ hashFiles('firmware/platformio.ini') }}
-      - run: pip install -r requirements.txt
-      - run: pio test -e native
-
-  firmware-build:
-    name: firmware build (${{ matrix.env }})
-    runs-on: ubuntu-24.04
+    name: firmware host tests (${{ matrix.name }})
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.firmware == 'true') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
-        env: [tier_a, tier_b]
-    defaults:
-      run:
-        working-directory: firmware
+        include:
+          - name: GCC
+            os: ubuntu-24.04
+            environment: native
+          - name: GCC with AddressSanitizer and UBSan
+            os: ubuntu-24.04
+            environment: native_sanitize
+          - name: Apple Clang
+            os: macos-15
+            environment: native
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: firmware/requirements.txt
-      - uses: actions/cache@v6
+          persist-credentials: false
+      - uses: ./.github/actions/setup-platformio
         with:
-          path: ~/.platformio
-          key: platformio-esp32s3-${{ hashFiles('firmware/platformio.ini') }}
-      - run: pip install -r requirements.txt
-      - run: pio run -e ${{ matrix.env }}
-      - uses: actions/upload-artifact@v7
-        with:
-          name: firmware-${{ matrix.env }}
-          path: |
-            firmware/.pio/build/${{ matrix.env }}/bootloader.bin
-            firmware/.pio/build/${{ matrix.env }}/partitions.bin
-            firmware/.pio/build/${{ matrix.env }}/ota_data_initial.bin
-            firmware/.pio/build/${{ matrix.env }}/firmware.bin
-          retention-days: 14
+          cache-scope: native
+      - name: Unity tests
+        working-directory: firmware
+        env:
+          PIO_ENVIRONMENT: ${{ matrix.environment }}
+        run: pio test --environment "$PIO_ENVIRONMENT"
+
+  firmware-build:
+    name: firmware build
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.firmware == 'true') }}
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [tier_a, tier_b]
+    uses: ./.github/workflows/firmware-build.yml
+    with:
+      environment: ${{ matrix.environment }}
 
   python-lint:
     name: python lint and types
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.python == 'true') }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: pyproject.toml
-      - run: pip install -e ".[dev]"
-      - run: ruff check .
-      - run: black --check .
+      - run: python -m pip install --disable-pip-version-check -e ".[dev]"
+      - run: ruff check --output-format=github .
+      - run: black --check --diff .
       - run: mypy
 
   python-test:
-    name: python tests (${{ matrix.python-version }})
-    runs-on: ubuntu-24.04
+    name: python tests (${{ matrix.os }}, ${{ matrix.python }})
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.python == 'true') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.14"]
+        include:
+          - os: ubuntu-24.04
+            python: "3.11"
+          - os: ubuntu-24.04
+            python: "3.14"
+          - os: windows-2025
+            python: "3.14"
+          - os: macos-15
+            python: "3.14"
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: ${{ matrix.python-version }}
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
           cache: pip
           cache-dependency-path: pyproject.toml
-      - run: pip install -e ".[dev]"
-      - run: pytest
+      - run: python -m pip install --disable-pip-version-check -e ".[dev]"
+      - name: Tests with coverage
+        run: pytest --cov --cov-report=term-missing --cov-report="markdown-append:$GITHUB_STEP_SUMMARY"
 
   web:
     name: web typecheck and build
+    needs: changes
+    if: ${{ !cancelled() && !failure() && (github.event_name != 'pull_request' || needs.changes.outputs.web == 'true') }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: web
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - run: npm ci
+      - run: npm ci --no-audit --no-fund
       - run: npm run typecheck
       - run: npm run build
 
-  markdown-links:
-    name: markdown links
+  ci-ok:
+    name: ci ok
+    if: always()
+    needs: [changes, workflows, text, cpp-format, firmware-test, firmware-build, python-lint, python-test, web]
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
     steps:
-      - uses: actions/checkout@v7
-      - uses: lycheeverse/lychee-action@v2
-        with:
-          args: --offline --include-fragments --no-progress '**/*.md'
-          fail: true
-
-  text-style:
-    name: text style
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.12"
-      - run: python .github/scripts/check_text_style.py
+      - name: Require every job to succeed or be skipped
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: ${RESULTS}"
+          if jq -e 'any(.[]; . == "failure" or . == "cancelled")' <<< "${RESULTS}" > /dev/null; then
+            echo "::error::At least one required job failed or was cancelled."
+            exit 1
+          fi

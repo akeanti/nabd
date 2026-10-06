@@ -4,36 +4,45 @@ on:
   push:
     branches: [main]
   pull_request:
+  merge_group:
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
-  group: compliance-${{ github.ref }}
-  cancel-in-progress: true
+  group: compliance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   p-class:
     name: IEEE C37.118.1 P class
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Configure
         run: cmake -S compliance -B compliance/build -DCMAKE_BUILD_TYPE=Release
       - name: Build
         run: cmake --build compliance/build --parallel
       - name: Run test conditions
-        run: compliance/build/nabd_compliance --report compliance/build/report.md
-      - name: Add report to job summary
-        if: always()
+        run: compliance/build/nabd_compliance --report "$RUNNER_TEMP/compliance-report.md"
+      - name: Add report to the job summary
+        if: ${{ !cancelled() }}
         run: |
-          if [ -f compliance/build/report.md ]; then
-            cat compliance/build/report.md >> "$GITHUB_STEP_SUMMARY"
+          if [[ -f "$RUNNER_TEMP/compliance-report.md" ]]; then
+            cat "$RUNNER_TEMP/compliance-report.md" >> "$GITHUB_STEP_SUMMARY"
           fi
-      - uses: actions/upload-artifact@v7
-        if: always()
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ !cancelled() }}
         with:
           name: compliance-report
-          path: compliance/build/report.md
+          path: ${{ runner.temp }}/compliance-report.md
           if-no-files-found: warn

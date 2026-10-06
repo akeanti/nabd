@@ -1,0 +1,72 @@
+name: firmware build
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: PlatformIO environment to build, for example tier_a.
+        type: string
+        required: true
+      cache:
+        description: Use the pip and PlatformIO caches. Release builds disable them.
+        type: boolean
+        default: true
+      fetch-depth:
+        description: Git history depth. Release builds use 0 so that the firmware version comes from the release tag.
+        type: number
+        default: 1
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: ${{ inputs.environment }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup-platformio
+        with:
+          cache: ${{ inputs.cache }}
+          cache-scope: esp32s3
+
+      - name: Build
+        working-directory: firmware
+        env:
+          PIO_ENVIRONMENT: ${{ inputs.environment }}
+        run: pio run --environment "$PIO_ENVIRONMENT" | tee "$RUNNER_TEMP/build.log"
+
+      - name: Report memory use
+        env:
+          PIO_ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          {
+            echo "### Firmware \`${PIO_ENVIRONMENT}\`"
+            echo
+            echo "| Region | Use |"
+            echo "| --- | --- |"
+            grep -E '^(RAM|Flash):' "$RUNNER_TEMP/build.log" \
+              | sed -E 's/^(RAM|Flash):[[:space:]]+\[[^]]*\][[:space:]]+/| \1 | /; s/$/ |/'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: firmware-${{ inputs.environment }}
+          path: |
+            firmware/.pio/build/${{ inputs.environment }}/bootloader.bin
+            firmware/.pio/build/${{ inputs.environment }}/partitions.bin
+            firmware/.pio/build/${{ inputs.environment }}/ota_data_initial.bin
+            firmware/.pio/build/${{ inputs.environment }}/firmware.bin
+            firmware/.pio/build/${{ inputs.environment }}/firmware.elf
+          if-no-files-found: error
+          retention-days: 14

@@ -36,6 +36,10 @@ CI runs each of these on every pull request.
 | Compliance | `cmake -S compliance -B compliance/build && cmake --build compliance/build && compliance/build/nabd_compliance --report compliance/build/report.md` |
 | Documentation | `mkdocs build --strict` |
 | Text style | `python .github/scripts/check_text_style.py` |
+| Generated README sections | `python .github/scripts/sync_readme_bom.py --check` and `python .github/scripts/render_readme_art.py --check` |
+| Workflows | `pip install -r .github/requirements-ci.txt`, then `actionlint` and `zizmor .` |
+
+After editing `hardware/BOM.csv` or the artwork generator, run the two README scripts without `--check` to regenerate their output.
 
 ## Code
 

@@ -1,0 +1,4 @@
+actionlint-py==1.7.12.25
+check-jsonschema==0.38.2
+shellcheck-py==0.11.0.1
+zizmor==1.30.1

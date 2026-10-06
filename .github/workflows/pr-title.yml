@@ -1,0 +1,52 @@
+name: pull request title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: pr-title-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  conventional-commit:
+    name: conventional commit title
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          types: |
+            feat
+            fix
+            perf
+            refactor
+            docs
+            test
+            build
+            ci
+            chore
+          scopes: |
+            firmware
+            dsp
+            time
+            hal
+            c37118
+            collector
+            events
+            web
+            tools
+            compliance
+            dataset
+            hardware
+            docs
+            deps
+            deps-dev
+          subjectPattern: ^[a-z].*[^.]$
+          subjectPatternError: Start the subject with a lowercase letter and do not end it with a period.

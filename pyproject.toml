@@ -33,6 +33,7 @@ dev = [
   "git-cliff==2.14.2",
   "mypy==2.4.0",
   "pytest==9.1.1",
+  "pytest-cov==7.1.0",
   "ruff==0.16.10",
 ]
 
@@ -70,7 +71,14 @@ python_version = "3.11"
 strict = true
 warn_unreachable = true
 mypy_path = "server,tools"
-files = ["server/nabd_collector", "server/nabd_events", "tools/nabd"]
+files = ["server/nabd_collector", "server/nabd_events", "tools/nabd", ".github/scripts"]
+
+[tool.coverage.run]
+source_pkgs = ["nabd", "nabd_collector", "nabd_events"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.pytest.ini_options]
 minversion = "9.0"
