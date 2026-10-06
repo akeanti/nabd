@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+<title id="title">Nabd: GPS-synchronized grid measurement on ESP32-S3</title>
+<desc id="desc">Project banner with a rotating voltage phasor that draws the outlet waveform in time.</desc>
+<style>.turn{transform-box:fill-box;transform-origin:center}.ring{transform-box:fill-box;transform-origin:center;opacity:.3}@media (prefers-reduced-motion:no-preference){.turn-fast{animation:turn 4s linear infinite}.turn-slow{animation:turn 12s linear infinite}.flow-right{animation:flow-right 4s linear infinite}.flow-left{animation:flow-left 12s linear infinite}.ring{animation:pulse 3s ease-out infinite}.dash{animation:dash 1.2s linear infinite}}@keyframes turn{to{transform:rotate(-360deg)}}@keyframes flow-right{to{transform:translateX(160px)}}@keyframes flow-left{to{transform:translateX(-152px)}}@keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(3.4);opacity:0}}@keyframes dash{to{stroke-dashoffset:-20}}</style>
+<defs>
+<linearGradient id="hero-bg" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#F6F8FA"/>
+<stop offset="1" stop-color="#E4F3F4"/>
+</linearGradient>
+<clipPath id="hero-screen"><rect x="676" y="36" width="568" height="288" rx="18"/></clipPath>
+<clipPath id="hero-trace"><rect x="900" y="36" width="320" height="288"/></clipPath>
+</defs>
+<rect width="1280" height="360" rx="24" fill="url(#hero-bg)"/>
+<rect x=".5" y=".5" width="1279" height="359" rx="24" fill="none" stroke="#D0D7DE"/>
+<text x="64" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0A7E8C" text-anchor="start" letter-spacing="3">OPEN GRID MEASUREMENT NETWORK</text>
+<text x="60" y="196" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="104" font-weight="800" fill="#1F2328" text-anchor="start" letter-spacing="-3">Nabd</text>
+<text x="64" y="244" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#59636E" text-anchor="start">GPS-synchronized frequency, ROCOF, and</text>
+<text x="64" y="276" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#59636E" text-anchor="start">synchrophasor measurement on ESP32-S3 nodes</text>
+<rect x="64" y="298" width="122.1" height="30" rx="15" fill="#FFFFFF" stroke="#D0D7DE"/><text x="125" y="318" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">IEEE C37.118</text>
+<rect x="196.1" y="298" width="90.7" height="30" rx="15" fill="#FFFFFF" stroke="#D0D7DE"/><text x="241.4" y="318" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">ESP32-S3</text>
+<rect x="296.8" y="298" width="82.9" height="30" rx="15" fill="#FFFFFF" stroke="#D0D7DE"/><text x="338.2" y="318" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">GPS PPS</text>
+<rect x="389.7" y="298" width="129.9" height="30" rx="15" fill="#FFFFFF" stroke="#D0D7DE"/><text x="454.6" y="318" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">Open hardware</text>
+<rect x="529.6" y="298" width="98.6" height="30" rx="15" fill="#FFFFFF" stroke="#D0D7DE"/><text x="578.9" y="318" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">Open data</text>
+<rect x="676" y="36" width="568" height="288" rx="18" fill="#FFFFFF" stroke="#D0D7DE"/>
+<g clip-path="url(#hero-screen)">
+<g stroke="#E3E8ED" stroke-width="1"><line x1="708" y1="36" x2="708" y2="324"/><line x1="740" y1="36" x2="740" y2="324"/><line x1="772" y1="36" x2="772" y2="324"/><line x1="804" y1="36" x2="804" y2="324"/><line x1="836" y1="36" x2="836" y2="324"/><line x1="868" y1="36" x2="868" y2="324"/><line x1="900" y1="36" x2="900" y2="324"/><line x1="932" y1="36" x2="932" y2="324"/><line x1="964" y1="36" x2="964" y2="324"/><line x1="996" y1="36" x2="996" y2="324"/><line x1="1028" y1="36" x2="1028" y2="324"/><line x1="1060" y1="36" x2="1060" y2="324"/><line x1="1092" y1="36" x2="1092" y2="324"/><line x1="1124" y1="36" x2="1124" y2="324"/><line x1="1156" y1="36" x2="1156" y2="324"/><line x1="1188" y1="36" x2="1188" y2="324"/><line x1="1220" y1="36" x2="1220" y2="324"/><line x1="676" y1="68" x2="1244" y2="68"/><line x1="676" y1="100" x2="1244" y2="100"/><line x1="676" y1="132" x2="1244" y2="132"/><line x1="676" y1="164" x2="1244" y2="164"/><line x1="676" y1="196" x2="1244" y2="196"/><line x1="676" y1="228" x2="1244" y2="228"/><line x1="676" y1="260" x2="1244" y2="260"/><line x1="676" y1="292" x2="1244" y2="292"/></g>
+</g>
+<circle cx="702" cy="60" r="5" fill="#CF222E"/>
+<circle cx="720" cy="60" r="5" fill="#B35900"/>
+<circle cx="738" cy="60" r="5" fill="#1A7F37"/>
+<text x="756" y="65" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="400" fill="#59636E" text-anchor="start">node 07  |  GPS locked  |  50 Hz nominal</text>
+<circle cx="790" cy="188" r="82" fill="none" stroke="#D0D7DE" stroke-width="1.5" stroke-dasharray="4 5"/>
+<line x1="696" y1="188" x2="1220" y2="188" stroke="#D0D7DE" stroke-width="1.5"/>
+<line x1="790" y1="94" x2="790" y2="282" stroke="#D0D7DE" stroke-width="1.5"/>
+<g clip-path="url(#hero-trace)"><g class="flow-right">
+<path d="M740 188 L742 194.4 744 200.8 746 207.1 748 213.3 750 219.4 752 225.2 754 230.8 756 236.2 758 241.3 760 246 762 250.4 764 254.3 766 257.9 768 261.1 770 263.8 772 266 774 267.7 776 269 778 269.7 780 270 782 269.7 784 269 786 267.7 788 266 790 263.8 792 261.1 794 257.9 796 254.3 798 250.4 800 246 802 241.3 804 236.2 806 230.8 808 225.2 810 219.4 812 213.3 814 207.1 816 200.8 818 194.4 820 188 822 181.6 824 175.2 826 168.9 828 162.7 830 156.6 832 150.8 834 145.2 836 139.8 838 134.7 840 130 842 125.6 844 121.7 846 118.1 848 114.9 850 112.2 852 110 854 108.3 856 107 858 106.3 860 106 862 106.3 864 107 866 108.3 868 110 870 112.2 872 114.9 874 118.1 876 121.7 878 125.6 880 130 882 134.7 884 139.8 886 145.2 888 150.8 890 156.6 892 162.7 894 168.9 896 175.2 898 181.6 900 188 902 194.4 904 200.8 906 207.1 908 213.3 910 219.4 912 225.2 914 230.8 916 236.2 918 241.3 920 246 922 250.4 924 254.3 926 257.9 928 261.1 930 263.8 932 266 934 267.7 936 269 938 269.7 940 270 942 269.7 944 269 946 267.7 948 266 950 263.8 952 261.1 954 257.9 956 254.3 958 250.4 960 246 962 241.3 964 236.2 966 230.8 968 225.2 970 219.4 972 213.3 974 207.1 976 200.8 978 194.4 980 188 982 181.6 984 175.2 986 168.9 988 162.7 990 156.6 992 150.8 994 145.2 996 139.8 998 134.7 1000 130 1002 125.6 1004 121.7 1006 118.1 1008 114.9 1010 112.2 1012 110 1014 108.3 1016 107 1018 106.3 1020 106 1022 106.3 1024 107 1026 108.3 1028 110 1030 112.2 1032 114.9 1034 118.1 1036 121.7 1038 125.6 1040 130 1042 134.7 1044 139.8 1046 145.2 1048 150.8 1050 156.6 1052 162.7 1054 168.9 1056 175.2 1058 181.6 1060 188 1062 194.4 1064 200.8 1066 207.1 1068 213.3 1070 219.4 1072 225.2 1074 230.8 1076 236.2 1078 241.3 1080 246 1082 250.4 1084 254.3 1086 257.9 1088 261.1 1090 263.8 1092 266 1094 267.7 1096 269 1098 269.7 1100 270 1102 269.7 1104 269 1106 267.7 1108 266 1110 263.8 1112 261.1 1114 257.9 1116 254.3 1118 250.4 1120 246 1122 241.3 1124 236.2 1126 230.8 1128 225.2 1130 219.4 1132 213.3 1134 207.1 1136 200.8 1138 194.4 1140 188 1142 181.6 1144 175.2 1146 168.9 1148 162.7 1150 156.6 1152 150.8 1154 145.2 1156 139.8 1158 134.7 1160 130 1162 125.6 1164 121.7 1166 118.1 1168 114.9 1170 112.2 1172 110 1174 108.3 1176 107 1178 106.3 1180 106 1182 106.3 1184 107 1186 108.3 1188 110 1190 112.2 1192 114.9 1194 118.1 1196 121.7 1198 125.6 1200 130 1202 134.7 1204 139.8 1206 145.2 1208 150.8 1210 156.6 1212 162.7 1214 168.9 1216 175.2 1218 181.6 1220 188" fill="none" stroke="#0A7E8C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g></g>
+<g transform="translate(790 188)"><g class="turn turn-fast">
+<circle r="82" fill="none"/>
+<line x1="0" y1="0" x2="82" y2="0" stroke="#B35900" stroke-width="4" stroke-linecap="round"/>
+<circle cx="82" cy="0" r="6.5" fill="#B35900"/>
+</g></g>
+<circle cx="790" cy="188" r="5" fill="#1F2328"/>
+<text x="790" y="306" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="400" fill="#59636E" text-anchor="middle">phasor V and angle</text>
+<text x="912" y="306" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="400" fill="#59636E" text-anchor="start">v(t) at the outlet, UTC-aligned</text>
+</svg>

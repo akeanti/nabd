@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="title desc">
+<title id="title">Isolated voltage path of a Nabd node</title>
+<desc id="desc">Signal chain from the wall outlet through a certified isolating AC-AC adapter, a resistor divider, a midscale bias, and the ADC to the DSP. The adapter's transformer is the isolation barrier between the mains side and the extra-low voltage node side.</desc>
+<style>.turn{transform-box:fill-box;transform-origin:center}.ring{transform-box:fill-box;transform-origin:center;opacity:.3}@media (prefers-reduced-motion:no-preference){.turn-fast{animation:turn 4s linear infinite}.turn-slow{animation:turn 12s linear infinite}.flow-right{animation:flow-right 4s linear infinite}.flow-left{animation:flow-left 12s linear infinite}.ring{animation:pulse 3s ease-out infinite}.dash{animation:dash 1.2s linear infinite}}@keyframes turn{to{transform:rotate(-360deg)}}@keyframes flow-right{to{transform:translateX(160px)}}@keyframes flow-left{to{transform:translateX(-152px)}}@keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(3.4);opacity:0}}@keyframes dash{to{stroke-dashoffset:-20}}</style>
+<rect x=".5" y=".5" width="1279" height="319" rx="20" fill="#0D1117" stroke="#30363D"/>
+<rect x="16" y="16" width="316" height="288" rx="14" fill="#3A1618"/>
+<rect x="332" y="16" width="932" height="288" rx="14" fill="#11261A"/>
+<text x="36" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="800" fill="#F85149" text-anchor="start" letter-spacing="1.5">MAINS SIDE</text>
+<text x="36" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#E6EDF3" text-anchor="start">hazardous voltage, sealed in the adapter</text>
+<text x="356" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="800" fill="#3FB950" text-anchor="start" letter-spacing="1.5">NODE SIDE</text>
+<text x="356" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#E6EDF3" text-anchor="start">extra-low voltage only; powered over USB</text>
+<rect x="40" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="124" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">Wall outlet</text>
+<text x="124" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">230 V or 120 V AC</text>
+<text x="124" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">never wired to the node</text>
+<line class="dash" x1="212" y1="156" x2="236" y2="156" stroke="#3CC5D3" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M244 156 L234 150 L234 162 Z" fill="#3CC5D3"/>
+<rect x="248" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="332" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">AC-AC adapter</text>
+<g fill="none" stroke="#E6EDF3" stroke-width="2.5"><path d="M321 140 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12"/><path d="M343 140 a6 6 0 0 0 0 12 a6 6 0 0 0 0 12 a6 6 0 0 0 0 12"/></g><g stroke="#F85149" stroke-width="2.5"><line x1="329.5" y1="136" x2="329.5" y2="180"/><line x1="334.5" y1="136" x2="334.5" y2="180"/></g>
+<text x="332" y="200" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">certified, 9 V AC out</text>
+<line class="dash" x1="420" y1="156" x2="444" y2="156" stroke="#3CC5D3" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M452 156 L442 150 L442 162 Z" fill="#3CC5D3"/>
+<rect x="456" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="540" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">Divider</text>
+<text x="540" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">100 kΩ and 5.6 kΩ</text>
+<text x="540" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">gain 0.053</text>
+<line class="dash" x1="628" y1="156" x2="652" y2="156" stroke="#3CC5D3" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M660 156 L650 150 L650 162 Z" fill="#3CC5D3"/>
+<rect x="664" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="748" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">Midscale bias</text>
+<text x="748" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">1.65 V reference</text>
+<text x="748" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">470 µF to ground</text>
+<line class="dash" x1="836" y1="156" x2="860" y2="156" stroke="#3CC5D3" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M868 156 L858 150 L858 162 Z" fill="#3CC5D3"/>
+<rect x="872" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="956" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">ADC</text>
+<text x="956" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">ESP32-S3 12-bit</text>
+<text x="956" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">or ADS131M02 24-bit</text>
+<line class="dash" x1="1044" y1="156" x2="1068" y2="156" stroke="#3CC5D3" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M1076 156 L1066 150 L1066 162 Z" fill="#3CC5D3"/>
+<rect x="1080" y="100" width="168" height="112" rx="12" fill="#161B22" stroke="#30363D" stroke-width="1.5"/>
+<text x="1164" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#E6EDF3" text-anchor="middle">DSP and GPS time</text>
+<text x="1164" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">phasor, frequency,</text>
+<text x="1164" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">ROCOF, UTC tags</text>
+<line x1="332" y1="28" x2="332" y2="94" stroke="#F85149" stroke-width="3" stroke-dasharray="8 6"/>
+<line x1="332" y1="218" x2="332" y2="250" stroke="#F85149" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="332" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#F85149" text-anchor="middle">isolation barrier</text>
+<text x="436" y="240" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="400" fill="#E6EDF3" text-anchor="middle">at most 20 V peak</text>
+<text x="852" y="240" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="400" fill="#E6EDF3" text-anchor="middle">0.50 V to 2.62 V</text>
+<text x="640" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198A1" text-anchor="middle">The only path to the grid is the transformer inside a certified adapter. The adapter carries only the divider current, below 0.2 mA.</text>
+</svg>

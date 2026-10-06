@@ -5,7 +5,8 @@ Nabd is an open network of low-cost GPS-synchronized ESP32 nodes that measure po
 !!! note "Status"
     Pre-release. The repository contains the build, test, and CI scaffold. Measurement firmware, collector, and map are under development.
 
-![Live map screenshot placeholder](assets/live-map-placeholder.svg)
+![Illustration of the planned live map](assets/readme/live-map-light.svg#only-light)
+![Illustration of the planned live map](assets/readme/live-map-dark.svg#only-dark)
 
 ## Start here
 

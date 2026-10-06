@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="88" viewBox="0 0 480 88" role="img" aria-labelledby="title desc">
+<title id="title">Flash a node from your browser</title>
+<desc id="desc">Button linking to the browser-based firmware installer.</desc>
+<rect x="4" y="4" width="472" height="80" rx="18" fill="#3CC5D3"/>
+<g stroke="#06181B" stroke-width="2.5" stroke-linecap="round" fill="none">
+<rect x="30" y="26" width="36" height="36" rx="6"/>
+<rect x="40" y="36" width="16" height="16" rx="2"/>
+<line x1="39" y1="20" x2="39" y2="26"/><line x1="39" y1="62" x2="39" y2="68"/><line x1="48" y1="20" x2="48" y2="26"/><line x1="48" y1="62" x2="48" y2="68"/><line x1="57" y1="20" x2="57" y2="26"/><line x1="57" y1="62" x2="57" y2="68"/>
+</g>
+<text x="88" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#06181B" text-anchor="start">Flash a node from your browser</text>
+<text x="88" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#06181B" text-anchor="start" opacity=".88">ESP Web Tools in Chrome or Edge; no toolchain needed</text>
+</svg>

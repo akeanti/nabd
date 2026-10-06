@@ -10,6 +10,9 @@
 
 The adapter's transformer is the isolation barrier between mains and the node. Everything on the node side, including the ESP32-S3 board, the GPS receiver, the USB supply, and any computer connected over USB, operates at extra-low voltage. Nothing in this project requires opening an adapter, an outlet, or a distribution board.
 
+![Isolated voltage path of a node](assets/readme/signal-chain-light.svg#only-light)
+![Isolated voltage path of a node](assets/readme/signal-chain-dark.svg#only-dark)
+
 Rules for every node:
 
 - Use a certified adapter marked as a safety isolating transformer (IEC 61558-2-6) or listed as a Class 2 transformer (UL 5085-3), with a 9 V AC output. The label shows the output as "9V AC" or "9V ~".
