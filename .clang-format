@@ -1,0 +1,5 @@
+BasedOnStyle: Google
+ColumnLimit: 100
+Standard: c++17
+DerivePointerAlignment: false
+PointerAlignment: Left

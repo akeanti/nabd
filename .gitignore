@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# PlatformIO and ESP-IDF
+firmware/.pio/
+firmware/sdkconfig.*
+!firmware/sdkconfig.defaults
+firmware/managed_components/
+
+# Web
+node_modules/
+web/dist/
+
+# Documentation site
+site/
+
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
+_autosave-*
+*.lck
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
