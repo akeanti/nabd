@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <fstream>
 #include <iostream>
 #include <string_view>
 
@@ -12,12 +11,7 @@ constexpr std::string_view kReport =
 
 }  // namespace
 
-int main(int argc, char** argv) {
-  if (argc != 3 || std::string_view(argv[1]) != "--report") {
-    std::cerr << "usage: nabd_compliance --report <path>\n";
-    return EXIT_FAILURE;
-  }
-  std::ofstream report(argv[2]);
-  report << kReport;
-  return report ? EXIT_SUCCESS : EXIT_FAILURE;
+int main() {
+  std::cout << kReport;
+  return std::cout ? EXIT_SUCCESS : EXIT_FAILURE;
 }

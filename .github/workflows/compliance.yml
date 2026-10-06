@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: cmake --build compliance/build --parallel
       - name: Run test conditions
-        run: compliance/build/nabd_compliance --report "$RUNNER_TEMP/compliance-report.md"
+        run: compliance/build/nabd_compliance > "$RUNNER_TEMP/compliance-report.md"
       - name: Add report to the job summary
         if: ${{ !cancelled() }}
         run: |
