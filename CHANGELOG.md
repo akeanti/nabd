@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file. The format foll
 
 ## Unreleased
 
+### Fixed
+
+- Print the report to standard output (compliance)
+
 ### Documentation
 
 - Add README and documentation site
@@ -12,6 +16,9 @@ All notable changes to this project are documented in this file. The format foll
 - Add changelog generated from commit history
 - Fill in the repository owner, citation author, and conduct contact
 - Redesign the README with generated light and dark artwork
+- Update the changelog
+- Show the declared version until the first release exists
+- Match the documentation theme to the project colors
 
 ### Build
 
@@ -27,3 +34,4 @@ All notable changes to this project are documented in this file. The format foll
 - Add workflows, Dependabot, and issue and PR templates
 - List changelog scopes after the entry text
 - Harden workflows and add code scanning and provenance
+- Write actionlint newlines outside the template action
