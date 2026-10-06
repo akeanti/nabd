@@ -1,0 +1,58 @@
+name: Data request
+description: Request measurements beyond the published dataset, such as a specific event, period, or region.
+labels: [data-request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Published releases contain city-level node locations only. Exact node coordinates are never shared.
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: Research question, course, or project that the data supports.
+    validations:
+      required: true
+  - type: input
+    id: affiliation
+    attributes:
+      label: Affiliation
+      description: Optional.
+  - type: input
+    id: period
+    attributes:
+      label: Time range (UTC)
+      placeholder: 2026-01-01T00:00Z to 2026-01-02T00:00Z
+    validations:
+      required: true
+  - type: input
+    id: scope
+    attributes:
+      label: Nodes, cities, or regions
+    validations:
+      required: true
+  - type: checkboxes
+    id: quantities
+    attributes:
+      label: Quantities
+      options:
+        - label: Frequency and ROCOF
+        - label: Voltage synchrophasors
+        - label: Detected events
+        - label: Quality flags and node health
+  - type: dropdown
+    id: format
+    attributes:
+      label: Format
+      options:
+        - Parquet
+        - CSV
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      options:
+        - label: I will cite the data as described in CITATION.cff and follow the CC BY 4.0 license.
+          required: true

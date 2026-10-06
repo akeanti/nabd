@@ -1,0 +1,60 @@
+name: kicad
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - hardware/**
+      - .github/workflows/kicad.yml
+  pull_request:
+    paths:
+      - hardware/**
+      - .github/workflows/kicad.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ERC, DRC, and fabrication outputs
+    runs-on: ubuntu-24.04
+    container:
+      image: kicad/kicad:8.0
+      options: --user root
+    steps:
+      - uses: actions/checkout@v7
+      - name: Find the KiCad project
+        id: project
+        run: |
+          project="$(find hardware -name '*.kicad_pro' -print -quit)"
+          if [ -z "$project" ]; then
+            echo "::notice::No KiCad project under hardware/ yet."
+          fi
+          echo "base=${project%.kicad_pro}" >> "$GITHUB_OUTPUT"
+      - name: Electrical rules check
+        if: steps.project.outputs.base != ''
+        env:
+          BASE: ${{ steps.project.outputs.base }}
+        run: |
+          mkdir -p out
+          kicad-cli sch erc --severity-error --exit-code-violations --output out/erc.rpt "${BASE}.kicad_sch"
+      - name: Design rules check
+        if: steps.project.outputs.base != ''
+        env:
+          BASE: ${{ steps.project.outputs.base }}
+        run: kicad-cli pcb drc --severity-error --exit-code-violations --schematic-parity --output out/drc.rpt "${BASE}.kicad_pcb"
+      - name: Export schematic PDF, Gerber, and drill files
+        if: steps.project.outputs.base != ''
+        env:
+          BASE: ${{ steps.project.outputs.base }}
+        run: |
+          mkdir -p out/gerbers
+          kicad-cli sch export pdf --output out/schematic.pdf "${BASE}.kicad_sch"
+          kicad-cli pcb export gerbers --output out/gerbers/ "${BASE}.kicad_pcb"
+          kicad-cli pcb export drill --output out/gerbers/ "${BASE}.kicad_pcb"
+      - uses: actions/upload-artifact@v7
+        if: always() && steps.project.outputs.base != ''
+        with:
+          name: kicad-outputs
+          path: out/

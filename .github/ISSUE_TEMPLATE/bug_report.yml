@@ -1,0 +1,77 @@
+name: Bug report
+description: Report a defect in the firmware, collector, event detection, web map, tools, compliance harness, hardware design, dataset, or documentation.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove exact coordinates, WiFi credentials, and node tokens from everything you paste below.
+        Report security vulnerabilities privately as described in SECURITY.md.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - Firmware
+        - Collector
+        - Event detection
+        - Web map
+        - CLI tools
+        - Compliance harness
+        - Hardware design
+        - Dataset
+        - Documentation
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Firmware version from the boot log or the node status page, release tag, or commit hash.
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Hardware tier
+      options:
+        - Tier A, internal ADC
+        - Tier B, ADS131M02
+        - Not applicable
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Serial log, collector log, or browser console output.
+      render: text
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed exact coordinates, WiFi credentials, and node tokens from this report.
+          required: true

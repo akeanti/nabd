@@ -1,0 +1,85 @@
+name: New node registration
+description: Register a node so that its measurements appear on the live map and in the dataset.
+title: "Node registration: CITY, COUNTRY"
+labels: [node-registration]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Give only your city and country. Do not post your address, exact coordinates, or photos that show where the node is installed.
+        After review, the collector administrator sends you a node ID and token through a private channel.
+  - type: input
+    id: city
+    attributes:
+      label: City
+    validations:
+      required: true
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      description: ISO 3166-1 alpha-2 code, for example JO or EG.
+    validations:
+      required: true
+  - type: input
+    id: grid
+    attributes:
+      label: Grid operator or synchronous area
+      description: For example the national transmission system operator, if known.
+  - type: dropdown
+    id: nominal-frequency
+    attributes:
+      label: Nominal frequency
+      options:
+        - 50 Hz
+        - 60 Hz
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Hardware tier
+      options:
+        - Tier A, internal ADC
+        - Tier B, ADS131M02
+    validations:
+      required: true
+  - type: input
+    id: gps
+    attributes:
+      label: GPS module
+      placeholder: NEO-M8N
+    validations:
+      required: true
+  - type: input
+    id: adapter
+    attributes:
+      label: AC-AC adapter make and model
+      description: Needed to apply the right magnitude and phase calibration.
+    validations:
+      required: true
+  - type: dropdown
+    id: antenna
+    attributes:
+      label: GPS antenna placement
+      options:
+        - Outdoors
+        - At a window
+        - Indoors away from windows
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: The node senses voltage only through a certified isolated AC-AC adapter and has no other connection to mains.
+          required: true
+        - label: I agree that measurements from this node and its city-level location are published under CC BY 4.0.
+          required: true
+        - label: This issue contains no address, exact coordinates, or identifying photos.
+          required: true

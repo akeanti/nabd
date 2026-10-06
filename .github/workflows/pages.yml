@@ -1,0 +1,57 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build site
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
+      - run: pip install -r docs/requirements.txt
+      - run: mkdocs build --strict
+      - name: Add the latest firmware release to the browser flasher
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p site/flash/firmware
+          if gh release view --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release download --repo "$GITHUB_REPOSITORY" --dir site/flash/firmware \
+              --pattern 'manifest-tier-*.json' --pattern 'nabd-tier-*-merged.bin'
+          else
+            echo "::notice::No release published yet; the browser flasher has no firmware to offer."
+          fi
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    name: deploy to GitHub Pages
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

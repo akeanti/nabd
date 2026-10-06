@@ -1,0 +1,107 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify version
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python .github/scripts/check_release_version.py "$GITHUB_REF_NAME"
+
+  firmware:
+    name: firmware (${{ matrix.env }})
+    needs: verify
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        env: [tier_a, tier_b]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: firmware/requirements.txt
+      - uses: actions/cache@v6
+        with:
+          path: ~/.platformio
+          key: platformio-esp32s3-${{ hashFiles('firmware/platformio.ini') }}
+      - run: pip install -r firmware/requirements.txt
+      - run: pio run -e ${{ matrix.env }}
+        working-directory: firmware
+      - name: Package merged image, OTA image, and browser flasher manifest
+        env:
+          ENV_NAME: ${{ matrix.env }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          tier="${ENV_NAME#tier_}"
+          build="firmware/.pio/build/${ENV_NAME}"
+          image="nabd-tier-${tier}-${version}-merged.bin"
+          mkdir -p dist
+          esptool --chip esp32s3 merge-bin --output "dist/${image}" \
+            0x0 "${build}/bootloader.bin" \
+            0x8000 "${build}/partitions.bin" \
+            0xe000 "${build}/ota_data_initial.bin" \
+            0x10000 "${build}/firmware.bin"
+          cp "${build}/firmware.bin" "dist/nabd-tier-${tier}-${version}-ota.bin"
+          jq -n \
+            --arg name "Nabd node, tier ${tier^^}" \
+            --arg version "${version}" \
+            --arg path "${image}" \
+            '{name: $name, version: $version, new_install_prompt_erase: true,
+              builds: [{chipFamily: "ESP32-S3", parts: [{path: $path, offset: 0}]}]}' \
+            > "dist/manifest-tier-${tier}.json"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ matrix.env }}
+          path: dist/
+
+  publish:
+    name: publish release
+    needs: firmware
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install git-cliff pinned in pyproject.toml
+        run: pip install "$(grep -oE 'git-cliff==[0-9.]+' pyproject.toml)"
+      - name: Generate release notes from Conventional Commits
+        run: git cliff --latest --strip header --output release-notes.md
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=()
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then flags+=(--prerelease); fi
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --title "Nabd $GITHUB_REF_NAME" \
+            --notes-file release-notes.md \
+            --verify-tag "${flags[@]}"
+      - name: Rebuild the documentation site so the browser flasher serves this release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
