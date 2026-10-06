@@ -9,6 +9,9 @@ All notable changes to this project are documented in this file. The format foll
 - Add README and documentation site
 - Add preliminary bill of materials (hardware)
 - Add contributing, security, conduct, and citation files
+- Add changelog generated from commit history
+- Fill in the repository owner, citation author, and conduct contact
+- Redesign the README with generated light and dark artwork
 
 ### Build
 
@@ -23,3 +26,4 @@ All notable changes to this project are documented in this file. The format foll
 
 - Add workflows, Dependabot, and issue and PR templates
 - List changelog scopes after the entry text
+- Harden workflows and add code scanning and provenance
