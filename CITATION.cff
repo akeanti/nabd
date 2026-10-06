@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: If you use Nabd software, hardware designs, or data, please cite it using these metadata.
+type: software
+title: "Nabd: an open network of GPS-synchronized ESP32 nodes for grid frequency and synchrophasor measurement"
+abstract: >-
+  Nabd is an open network of low-cost GPS-synchronized ESP32-S3 nodes that
+  measure power grid frequency, rate of change of frequency (ROCOF), and voltage
+  synchrophasors following the P class of IEEE C37.118.1. The project contains
+  the node firmware, a collector that stores time-aligned measurements as
+  Parquet files, event detection, a live map, a compliance test harness, KiCad
+  hardware designs, and an open dataset.
+authors:
+  - given-names: GIVEN_NAME
+    family-names: FAMILY_NAME
+    affiliation: AFFILIATION
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/OWNER/nabd"
+url: "https://OWNER.github.io/nabd/"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.0000000
+    description: Placeholder for the Zenodo concept DOI assigned at the first archived release.
+keywords:
+  - synchrophasor
+  - phasor measurement unit
+  - grid frequency
+  - ROCOF
+  - IEEE C37.118
+  - ESP32
+  - GPS
+  - open hardware
+license:
+  - MIT
+  - CERN-OHL-P-2.0
+  - CC-BY-4.0
+version: 0.1.0
